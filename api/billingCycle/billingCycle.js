@@ -1,0 +1,24 @@
+const restful = require('node-restful')
+const mongoose = restful.mongoose
+
+
+const creditSchema = new mongoose.Schema({
+    name: { type: String, required: [true, 'O atributo nome de crédito é o brigatório'] },
+    value: { type: Number, min: 0, required: true }
+})
+
+const debitSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    value: { type: Number, min: 0, required: true },
+    status: { type: String, required: true, uppercase: true, enum: ['PAGO', 'PENDENTE', 'AGENDADO'] }
+})
+
+const billingCycleSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    month: { type: Number, min: 1, max: 12, required: true },
+    year: { type: Number, min: 1900, max: 3000, required: true },
+    credits: [creditSchema],
+    debits: [debitSchema]
+})
+
+module.exports = restful.model('billingCycle', billingCycleSchema)
