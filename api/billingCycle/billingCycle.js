@@ -3,7 +3,7 @@ const mongoose = restful.mongoose
 
 
 const creditSchema = new mongoose.Schema({
-    name: { type: String, required: [true, 'O atributo nome de crédito é o brigatório'] },
+    name: { type: String, required: true },
     value: { type: Number, min: 0, required: true }
 })
 
